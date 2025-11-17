@@ -88,7 +88,11 @@
       </div>
 
       <nav>
-        <button class="mobile-toggle" id="mobileBtn" aria-expanded="false">?</button>
+        <button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
+		<span class="hamburger-line"></span>
+		<span class="hamburger-line"></span>
+		<span class="hamburger-line"></span>
+		</button>
         <ul id="navList">
           <li><a href="#accueil">Accueil</a></li>
           <li><a href="#sources">Sources</a></li>
@@ -219,8 +223,8 @@
         <div class="cols" style="margin-top:12px">
           <div class="resource">
             <h3>Aides alimentaires</h3>
-            <a href="https://www.crous.fr" target="_blank" rel="noopener">Crous — Repas étudiants dès 1€</a>
-            <a href="https://www.fage.org/agorae" target="_blank" rel="noopener">AGORAé — Épiceries solidaires</a>
+            <a href="https://www.lescrous.fr/" target="_blank" rel="noopener">Crous — Repas étudiants dès 1€</a>
+            <a href="https://www.fage.org/innovation-sociale/solidarite-etudiante/agorae-fage.htm" target="_blank" rel="noopener noreferrer">AGORAé — Épiceries solidaires</a>
             <a href="https://www.restosducoeur.org" target="_blank" rel="noopener">Restos du Cœur</a>
             <a href="https://www.banquealimentaire.org" target="_blank" rel="noopener">Banques Alimentaires</a>
           </div>
@@ -239,7 +243,7 @@
             <a href="https://www.visale.fr" target="_blank" rel="noopener">Visale — Garant gratuit</a>
             <a href="https://www.caf.fr" target="_blank" rel="noopener">CAF — APL, ALS</a>
             <a href="https://www.service-public.fr" target="_blank" rel="noopener">Service-Public — Démarches</a>
-            <a href="https://www.crous.fr/logement/" target="_blank" rel="noopener">Crous — Logements universitaires</a>
+            <a href="https://trouverunlogement.lescrous.fr/" target="_blank" rel="noopener">Crous — Logements universitaires</a>
           </div>
           <div>
             <h3>Santé & sexualité</h3>
@@ -302,13 +306,47 @@
 
   <script>
     // Mobile menu toggle
-    const mobileBtn = document.getElementById('mobileBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileBtn && mobileBtn.addEventListener('click', ()=>{
-      const open = mobileMenu.style.display === 'block';
-      mobileMenu.style.display = open ? 'none' : 'block';
-      mobileBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
-    });
+    .mobile-toggle {
+	display: none;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.04);
+	padding: 8px;
+	border-radius: 10px;
+	flex-direction: column;
+	gap: 3px;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	justify-content: center;
+	align-items: center;
+}
+
+.hamburger-line {
+  width: 20px;
+  height: 2px;
+  background-color: #e6eef7;
+  transition: all 0.3s ease;
+}
+
+/* Animation quand le menu est ouvert */
+.mobile-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.mobile-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -4px);
+}
+
+@media (max-width:880px){
+  nav ul{display:none}
+  .mobile-toggle{display:flex} /* Changé de inline-block à flex */
+  .mobile-menu{display:none;}
+  .hero{padding:24px}
+}
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
