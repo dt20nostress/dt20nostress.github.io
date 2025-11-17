@@ -7,12 +7,12 @@
   <meta name="description" content="Plateforme d'information, prévention et accompagnement pour le stress étudiant." />
   <style>
     :root{
-      --bg: #f0f7f4; 
+      --bg: #e8f0ee; 
       --card: #ffffff; 
       --muted: #5f7873; 
-      --accent: #7ddac6;  
-      --accent-2: #8cb8ff;
-      --accent-3: #a8d8b9;
+      --accent: #6dcab5;  
+      --accent-2: #7aa7e6;
+      --accent-3: #95c9a8;
       --glass: rgba(255,255,255,0.4);
       --maxw:1100px; 
       --radius:16px; 
@@ -22,16 +22,16 @@
     
     body{
       margin:0; 
-      background:linear-gradient(180deg, #e8f4f2 0%, #f0f7f4 100%);
-      color:#23403a;
+      background:linear-gradient(180deg, #ddebe8 0%, #e8f0ee 100%);
+      color:#1a332e;
     }
     
     .logo{color:#fff}
 
     *{box-sizing:border-box}
-    body{margin:0; background:linear-gradient(180deg,#e8f4f2 0%, #f0f7f4 100%); color:#23403a; -webkit-font-smoothing:antialiased}
+    body{margin:0; background:linear-gradient(180deg,#ddebe8 0%, #e8f0ee 100%); color:#1a332e; -webkit-font-smoothing:antialiased}
     a{color:var(--accent-2); text-decoration:none}
-    header{backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); position:sticky; top:0; z-index:40}
+    header{backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(255,255,255,0.1), transparent); position:sticky; top:0; z-index:40}
     .container{max-width:var(--maxw); margin:0 auto; padding:18px}
 
     /* Navbar */
@@ -43,8 +43,8 @@
     .cta{background:var(--accent-3); color:#022; padding:8px 12px; border-radius:10px; font-weight:600}
 
     /* Mobile */
-    .mobile-toggle{display:none; background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px; border-radius:10px; flex-direction: column; cursor: pointer; width: 44px; height: 44px; justify-content: center; align-items: center; gap: 4px;}
-    .hamburger-line{width: 20px; height: 2px; background-color: #23403a; transition: all 0.3s ease;}
+    .mobile-toggle{display:none; background:transparent; border:1px solid rgba(0,0,0,0.1); padding:8px; border-radius:10px; flex-direction: column; cursor: pointer; width: 44px; height: 44px; justify-content: center; align-items: center; gap: 4px;}
+    .hamburger-line{width: 20px; height: 2px; background-color: #1a332e; transition: all 0.3s ease;}
     
     @media (max-width:880px){
       nav ul{display:none}
@@ -56,7 +56,7 @@
     /* Hero */
     .hero{padding:42px 0}
     .hero-grid{display:grid; grid-template-columns:1fr 380px; gap:28px; align-items:start}
-    .card{background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:0 6px 24px rgba(3,6,12,0.06)}
+    .card{background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.05)}
     .headline{font-size:28px; margin:0 0 8px}
     .sub{color:var(--muted); margin:0 0 12px}
     .quick-nums{display:flex; gap:10px; flex-wrap:wrap}
@@ -123,6 +123,22 @@
       .mobile-toggle.open .hamburger-line:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
       }
+      
+      /* Overlay pour fermer le menu */
+      .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+        z-index: 998;
+        display: none;
+      }
+      
+      .menu-overlay.active {
+        display: block;
+      }
     }
   </style>
 </head>
@@ -164,6 +180,8 @@
         <li style="padding:8px 0"><a href="#contact">Contact</a></li>
       </ul>
     </div>
+    <!-- Overlay pour fermer le menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
   </header>
 
   <main class="container">
@@ -358,6 +376,7 @@
     // Mobile menu toggle
     const btn = document.getElementById("mobileBtn");
     const mobileMenu = document.getElementById("mobileMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
 
     btn.addEventListener("click", () => {
       const isOpen = btn.getAttribute("aria-expanded") === "true";
@@ -366,10 +385,20 @@
       if(isOpen){
         mobileMenu.classList.remove("open");
         btn.classList.remove("open");
+        menuOverlay.classList.remove("active");
       } else {
         mobileMenu.classList.add("open");
         btn.classList.add("open");
+        menuOverlay.classList.add("active");
       }
+    });
+
+    // Fermeture du menu en cliquant sur l'overlay
+    menuOverlay.addEventListener("click", () => {
+      btn.setAttribute("aria-expanded", "false");
+      mobileMenu.classList.remove("open");
+      btn.classList.remove("open");
+      menuOverlay.classList.remove("active");
     });
 
     // Fermeture auto après clic sur un lien
@@ -378,6 +407,7 @@
         btn.setAttribute("aria-expanded", "false");
         mobileMenu.classList.remove("open");
         btn.classList.remove("open");
+        menuOverlay.classList.remove("active");
       });
     });
 
