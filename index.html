@@ -43,7 +43,21 @@
     .cta{background:var(--accent-3); color:#022; padding:8px 12px; border-radius:10px; font-weight:600}
 
     /* Mobile */
-.mobile-toggle{display:none; background:transparent; border:1px solid rgba(0,0,0,0.1); padding:8px; border-radius:10px; flex-direction: column; cursor: pointer; width: 44px; height: 44px; justify-content: center; align-items: center; gap: 4px; z-index: 1000;} /* Ajout de z-index: 1000 */
+.mobile-toggle {
+    display: none; 
+    background: transparent; 
+    border: 1px solid rgba(0,0,0,0.1); 
+    padding: 8px; 
+    border-radius: 10px; 
+    flex-direction: column; 
+    cursor: pointer; 
+    width: 44px; 
+    height: 44px; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 4px; 
+    z-index: 1001; /* Augmenté à 1001 */
+}
 .hamburger-line{width: 20px; height: 2px; background-color: #1a332e; transition: all 0.3s ease;}
 
 @media (max-width:880px){
@@ -101,17 +115,17 @@
       .card{padding:14px}
       
       .mobile-menu {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100vh;
-        background: var(--card);
-        box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-        padding: 20px;
-        transition: right 0.35s ease;
-        z-index: 999;
-      }
+		position: fixed;
+		top: 0;
+		right: -260px;
+		width: 260px;
+		height: 100vh;
+		background: var(--card);
+		box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+		padding: 20px;
+		transition: right 0.35s ease;
+		z-index: 1000; /* Menu à 1000 */
+	}
 
       .mobile-menu.open {
         right: 0;
@@ -133,16 +147,15 @@
       
       /* Overlay pour fermer le menu */
       .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.3);
-        z-index: 998;
-        display: none;
-      }
-      
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.3);
+		z-index: 999; /* Overlay à 999 */
+		display: none;
+	}  
       .menu-overlay.active {
         display: block;
       }
