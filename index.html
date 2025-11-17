@@ -7,10 +7,24 @@
   <meta name="description" content="Plateforme d'information, prévention et accompagnement pour le stress étudiant." />
   <style>
     :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#98a0b3; --accent:#6ee7b7; --accent-2:#60a5fa;
-      --glass: rgba(255,255,255,0.03);
-      --maxw:1100px; --radius:12px; --gap:18px; font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    }
+	--bg:#e8f4f2; 
+	--card:#ffffff; 
+	--muted:#5f7873; 
+	--accent:#7ddac6;  
+	--accent-2:#8cb8ff;
+	--glass: rgba(255,255,255,0.4);
+	--maxw:1100px; 
+	--radius:16px; 
+	--gap:18px; 
+	font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	}
+	body{
+	margin:0; 
+	background:linear-gradient(180deg,#dff3f0 0%, #e8f4f2 100%);
+	color:#23403a;
+	}
+	.logo{color:#fff}
+
     *{box-sizing:border-box}
     body{margin:0; background:linear-gradient(180deg,#071025 0%, #071827 100%); color:#e6eef7; -webkit-font-smoothing:antialiased}
     a{color:var(--accent-2); text-decoration:none}
@@ -303,78 +317,80 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // Mobile menu toggle
-    .mobile-toggle {
-	display: none;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.04);
-	padding: 8px;
-	border-radius: 10px;
-	flex-direction: column;
-	gap: 3px;
-	cursor: pointer;
-	width: 40px;
-	height: 40px;
-	justify-content: center;
-	align-items: center;
-}
-
-.hamburger-line {
-  width: 20px;
-  height: 2px;
-  background-color: #e6eef7;
-  transition: all 0.3s ease;
-}
-
-/* Animation quand le menu est ouvert */
-.mobile-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 4px);
-}
-
-.mobile-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
-  transform: rotate(-45deg) translate(4px, -4px);
-}
-
-@media (max-width:880px){
+  
+  @media (max-width:880px){
   nav ul{display:none}
-  .mobile-toggle{display:flex} /* Changé de inline-block à flex */
-  .mobile-menu{display:none;}
+  .mobile-toggle{display:flex}
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100vh;
+    background: var(--card);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+    padding: 20px;
+    transition: right 0.35s ease;
+    z-index: 999;
+  }
+
+  .mobile-menu.open {
+    right: 0;
+  }
+
   .hero{padding:24px}
 }
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', function(e){
-        const href = this.getAttribute('href');
-        if(href.length>1){
-          e.preventDefault();
-          const el = document.querySelector(href);
-          if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
-          // close mobile menu after click
-          if(window.innerWidth<=880) mobileMenu.style.display='none';
-        }
-      })
-    });
+  <script>
+    // Mobile menu toggle
+const btn = document.getElementById("mobileBtn");
+const mobileMenu = document.getElementById("mobileMenu");
 
-    // Mock form send (no backend). Replace with your endpoint.
-    function sendForm(e){
+btn.addEventListener("click", () => {
+  const isOpen = btn.getAttribute("aria-expanded") === "true";
+  btn.setAttribute("aria-expanded", !isOpen);
+
+  if(isOpen){
+    mobileMenu.classList.remove("open");
+  } else {
+    mobileMenu.classList.add("open");
+  }
+});
+
+// Fermeture auto après clic sur un lien
+document.querySelectorAll('.mobile-menu a').forEach(link=>{
+  link.addEventListener("click", ()=>{
+    btn.setAttribute("aria-expanded", "false");
+    mobileMenu.classList.remove("open");
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', function(e){
+    const href = this.getAttribute('href');
+    if(href.length>1){
       e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const msg = document.getElementById('message').value.trim();
-      const status = document.getElementById('formStatus');
-      if(!name||!email||!msg){ status.textContent='Merci de compléter tous les champs.'; return; }
-      // For now, we just show a success message. Integrate with your server to store messages.
-      status.style.color='var(--accent-2)';
-      status.textContent='Message envoyé — merci ! (formulaire en local, à connecter au serveur)';
-      e.target.reset();
+      const el = document.querySelector(href);
+      if(el){ el.scrollIntoView({behavior:'smooth'}); }
     }
+  })
+});
+
+// Mock form send
+function sendForm(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const msg = document.getElementById('message').value.trim();
+  const status = document.getElementById('formStatus');
+  if(!name||!email||!msg){ status.textContent='Merci de compléter tous les champs.'; return; }
+  status.style.color='var(--accent-2)';
+  status.textContent='Message envoyé — merci ! ';
+  e.target.reset();
+}
+
   </script>
 </body>
 </html>
