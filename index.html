@@ -43,15 +43,22 @@
     .cta{background:var(--accent-3); color:#022; padding:8px 12px; border-radius:10px; font-weight:600}
 
     /* Mobile */
-    .mobile-toggle{display:none; background:transparent; border:1px solid rgba(0,0,0,0.1); padding:8px; border-radius:10px; flex-direction: column; cursor: pointer; width: 44px; height: 44px; justify-content: center; align-items: center; gap: 4px;}
-    .hamburger-line{width: 20px; height: 2px; background-color: #1a332e; transition: all 0.3s ease;}
-    
-    @media (max-width:880px){
-      nav ul{display:none}
-      .mobile-toggle{display:flex}
-      .mobile-menu{display:none;}
-      .hero{padding:24px}
-    }
+.mobile-toggle{display:none; background:transparent; border:1px solid rgba(0,0,0,0.1); padding:8px; border-radius:10px; flex-direction: column; cursor: pointer; width: 44px; height: 44px; justify-content: center; align-items: center; gap: 4px; z-index: 1000;} /* Ajout de z-index: 1000 */
+.hamburger-line{width: 20px; height: 2px; background-color: #1a332e; transition: all 0.3s ease;}
+
+@media (max-width:880px){
+  nav ul{display:none}
+  .mobile-toggle{display:flex} /* Le menu hamburger s'affiche SEULEMENT sur mobile */
+  .mobile-menu{display:none;}
+  .hero{padding:24px}
+}
+
+/* Sur PC - menu normal s'affiche */
+@media (min-width:881px){
+  .mobile-toggle{display:none} /* Cache le bouton hamburger sur PC */
+  nav ul{display:flex} /* Affiche le menu normal sur PC */
+  .mobile-menu{display:none !important} /* Cache complètement le menu mobile sur PC */
+}
 
     /* Hero */
     .hero{padding:42px 0}
@@ -154,20 +161,23 @@
       </div>
 
       <nav>
-        <button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-        <ul id="navList">
-          <li><a href="#accueil">Accueil</a></li>
-          <li><a href="#sources">Sources</a></li>
-          <li><a href="#reduire">Comment réduire</a></li>
-          <li><a href="#ressources">Ressources</a></li>
-          <li><a href="#nums">Numéros</a></li>
-          <li><a href="#contact" class="cta">Contact</a></li>
-        </ul>
-      </nav>
+	<!-- Le bouton hamburger reste mais sera caché sur PC par le CSS -->
+	<button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+	</button>
+	<!-- Le menu normal reste visible sur PC, caché sur mobile -->
+	<ul id="navList">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#sources">Sources</a></li>
+    <li><a href="#reduire">Comment réduire</a></li>
+    <li><a href="#ressources">Ressources</a></li>
+    <li><a href="#nums">Numéros</a></li>
+    <li><a href="#contact" class="cta">Contact</a></li>
+	</ul>
+	</nav>
+
     </div>
     <!-- mobile menu -->
     <div class="mobile-menu card" id="mobileMenu">
