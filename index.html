@@ -275,7 +275,25 @@
             .menu-overlay.active{
                 display:block;
             }
+            .contact-grid{
+            display:grid;
+            grid-template-columns:1fr 360px;
+            gap:16px;
         }
+
+        /* Make contact responsive */
+        @media(max-width:880px){
+            #contact .contact-grid{
+                grid-template-columns:1fr;
+            }
+            #contact .contact-grid > div:nth-child(2){
+                order:-1; /* move infos block above form */
+            }
+        }
+
+        input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc}
+        button.primary{padding:10px;border:0;border-radius:10px;background:var(--accent-3);cursor:pointer;font-weight:600}
+ 
     </style>
 </head>
 
@@ -485,30 +503,32 @@
         </section>
 
         <section id="contact">
-            <div class="card">
-                <h2>Contact</h2>
-                <p class="muted">Pour proposer une ressource, signaler une erreur ou demander des partenariats.</p>
+        <div class="card">
+            <h2>Contact</h2>
+            <p style="color:var(--muted)">Pour proposer une ressource ou signaler une erreur.</p>
 
-                <div style="display:grid; grid-template-columns:1fr 360px; gap:16px; margin-top:12px">
+            <div class="contact-grid">
 
-                    <form onsubmit="sendForm(event)">
-                        <input type="text" id="name" placeholder="Ton prénom" required />
-                        <input type="email" id="email" placeholder="Ton email" required />
-                        <textarea id="message" rows="5" placeholder="Message" required></textarea>
-                        <button class="primary" type="submit">Envoyer</button>
-                        <div id="formStatus" class="small muted" style="margin-top:8px"></div>
-                    </form>
-
-                    <div class="card small">
-                        <h4 style="margin:0 0 8px">Infos utiles</h4>
-                        <div>Organisation : équipe étudiante — projet Design Thinking</div>
-                        <div style="margin-top:8px">Email : <a href="mailto:dt20.no.stress@gmail.com">dt20.no.stress@gmail.com</a></div>
-                        <div style="margin-top:8px">Mentions : Ce site informe et oriente, il ne remplace pas un avis médical.</div>
-                    </div>
-
+                <!-- Info block (now moves above on phone) -->
+                <div class="card" style="font-size:14px;color:var(--muted)">
+                    <h4>Infos utiles</h4>
+                    <div>Organisation : équipe étudiante — projet Design Thinking</div>
+                    <div style="margin-top:8px">Email : <a href="mailto:dt20.no.stress@gmail.com">dt20.no.stress@gmail.com</a></div>
+                    <div style="margin-top:8px">Ce site n'est pas un avis médical.</div>
                 </div>
+
+                <!-- Contact form -->
+                <form onsubmit="sendForm(event)">
+                    <input id="name" placeholder="Ton prénom" required>
+                    <input id="email" type="email" placeholder="Ton email" required>
+                    <textarea id="message" rows="5" placeholder="Message" required></textarea>
+                    <button class="primary" type="submit">Envoyer</button>
+                    <div id="formStatus" style="font-size:14px;margin-top:8px;color:var(--muted)"></div>
+                </form>
             </div>
-        </section>
+        </div>
+    </section>
+
     </main>
 
     <footer>
@@ -598,3 +618,4 @@
     </script>
 </body>
 </html>
+
