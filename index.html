@@ -67,7 +67,8 @@ nav li{font-size:15px}
     justify-content: center;
     align-items: center;
     gap: 4px;
-    z-index: 3001 !important; /* ← toujours devant le menu */
+    z-index: 9999 !important; /* Toujours au-dessus du menu */
+}
     position: relative;
 }
 .hamburger-line{
@@ -142,6 +143,7 @@ button.primary{
 
 /* Responsive FIX : Contact grid */
 .contact-grid{
+  
   display:grid;
   grid-template-columns:1fr 360px;
   gap:16px;
@@ -155,7 +157,11 @@ button.primary{
     grid-template-columns:1fr;
   }
 
-  .contact-grid > *{
+  
+  .contact-grid .card.small {
+  width: 100%;
+  max-width: 100%;
+}
     width:100% !important;
     max-width:100% !important;
   }
@@ -163,6 +169,10 @@ button.primary{
 
 /* Mobile menu sliding panel */
 @media (max-width:880px){
+  header {
+  position: relative;
+  z-index: 9000;
+}
   .mobile-menu{
     position:fixed;
     top:0; right:-260px;
@@ -371,3 +381,4 @@ function sendForm(e){
 
 </body>
 </html>
+
