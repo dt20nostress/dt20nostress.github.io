@@ -67,7 +67,7 @@ nav li{font-size:15px}
     justify-content: center;
     align-items: center;
     gap: 4px;
-    z-index: 9999 !important; /* Toujours au-dessus du menu */
+    z-index: 3001 !important; /* ← toujours devant le menu */
     position: relative;
 }
 .hamburger-line{
@@ -147,8 +147,6 @@ button.primary{
   gap:16px;
   margin-top:12px;
 }
-
-/* Mobile responsive adjustments for contact grid */
 @media (max-width:880px){
   .hero-grid{grid-template-columns:1fr}
   .cols{grid-template-columns:1fr}
@@ -157,14 +155,7 @@ button.primary{
     grid-template-columns:1fr;
   }
 
-  /* Empêcher la carte "Infos utiles" de déborder */
-  .contact-grid .card.small {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  /* Assurer que tous les enfants prennent 100% de la largeur */
-  .contact-grid > * {
+  .contact-grid > *{
     width:100% !important;
     max-width:100% !important;
   }
@@ -172,10 +163,6 @@ button.primary{
 
 /* Mobile menu sliding panel */
 @media (max-width:880px){
-  header {
-    position: relative;
-    z-index: 9000;
-  }
   .mobile-menu{
     position:fixed;
     top:0; right:-260px;
@@ -223,7 +210,7 @@ button.primary{
       </div>
 
       <nav>
-        <button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
+        <button class="mobile-toggle" id="mobileBtn">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
@@ -241,7 +228,7 @@ button.primary{
     </div>
 
     <!-- Menu mobile -->
-    <div class="mobile-menu card" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu card" id="mobileMenu">
       <ul style="list-style:none; margin:0; padding:8px 0">
         <li style="padding:8px 0"><a href="#accueil">Accueil</a></li>
         <li style="padding:8px 0"><a href="#sources">Les grandes sources</a></li>
@@ -335,4 +322,52 @@ const menuOverlay = document.getElementById("menuOverlay");
 
 btn.addEventListener("click", () => {
   const open = btn.classList.contains("open");
-  btn.classList.toggle("open
+  btn.classList.toggle("open", !open);
+  mobileMenu.classList.toggle("open", !open);
+  menuOverlay.classList.toggle("active", !open);
+});
+
+// Fermer avec overlay
+menuOverlay.addEventListener("click", () => {
+  btn.classList.remove("open");
+  mobileMenu.classList.remove("open");
+  menuOverlay.classList.remove("active");
+});
+
+// Fermer après clic lien
+document.querySelectorAll('.mobile-menu a').forEach(a=>{
+  a.addEventListener("click", ()=>{
+    btn.classList.remove("open");
+    mobileMenu.classList.remove("open");
+    menuOverlay.classList.remove("active");
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', function(e){
+    const href = this.getAttribute('href');
+    if(href.length>1){
+      e.preventDefault();
+      const el = document.querySelector(href);
+      if(el){
+        const offset = 80;
+        const pos = el.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({top:pos, behavior:'smooth'});
+      }
+    }
+  });
+});
+
+// Fake send form
+function sendForm(e){
+  e.preventDefault();
+  const status = document.getElementById('formStatus');
+  status.style.color='var(--accent-2)';
+  status.textContent='Message envoyé — merci !';
+  e.target.reset();
+}
+</script>
+
+</body>
+</html>
