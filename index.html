@@ -41,7 +41,7 @@
             background: var(--glass);
             position: sticky;
             top: 0;
-            z-index: 100; /* Réduit pour être sous le bouton mobile */
+            z-index: 100;
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
@@ -57,7 +57,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative; /* Important pour le z-index */
+            position: relative;
         }
 
         .brand {
@@ -101,7 +101,7 @@
             color: white;
         }
 
-        /* Mobile - CORRECTION COMPLÈTE */
+        /* Mobile - CORRECTIONS */
         .mobile-toggle {
             display: none;
             background: transparent;
@@ -115,8 +115,8 @@
             justify-content: center;
             align-items: center;
             gap: 4px;
-            z-index: 1003; /* TRÈS ÉLEVÉ */
-            position: relative; /* Essentiel pour z-index */
+            z-index: 1003;
+            position: relative;
         }
 
         .hamburger-line {
@@ -124,6 +124,7 @@
             height: 2px;
             background-color: var(--text);
             transition: all 0.3s ease;
+            transform-origin: center; /* Important pour la rotation */
         }
 
         @media (max-width: 880px) {
@@ -131,7 +132,7 @@
             .mobile-toggle { 
                 display: flex;
                 position: relative;
-                z-index: 1003; /* Garanti au-dessus de tout */
+                z-index: 1003;
             }
             .mobile-menu { display: none }
             .hero { padding: 24px 0 }
@@ -286,7 +287,7 @@
             background: var(--accent-2);
         }
 
-        /* Mobile menu panel - CORRECTION COMPLÈTE */
+        /* Mobile menu panel - CORRECTIONS COMPLÈTES */
         @media (max-width: 880px) {
             .hero-grid { grid-template-columns: 1fr; }
             .cols { grid-template-columns: 1fr }
@@ -295,14 +296,14 @@
             .mobile-menu {
                 position: fixed;
                 top: 0;
-                right: -260px;
-                width: 260px;
+                right: -100%; /* Changé de -260px à -100% pour couvrir tout l'écran */
+                width: 100%; /* Prend toute la largeur */
                 height: 100vh;
-                background: var(--card);
+                background: var(--card); /* Fond opaque */
                 box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-                padding: 80px 20px 20px 20px; /* Plus d'espace en haut */
+                padding: 100px 20px 20px 20px; /* Plus d'espace en haut */
                 transition: right 0.35s ease;
-                z-index: 1002; /* En dessous du bouton */
+                z-index: 1002;
                 overflow-y: auto;
             }
 
@@ -311,14 +312,16 @@
                 display: block;
             }
 
+            /* CORRECTION DE LA CROIX - transformation complète */
             .mobile-toggle.open .hamburger-line:nth-child(1) {
-                transform: rotate(45deg) translate(6px, 6px);
+                transform: rotate(45deg) translate(5px, 5px);
             }
             .mobile-toggle.open .hamburger-line:nth-child(2) {
                 opacity: 0;
+                transform: translateX(-10px);
             }
             .mobile-toggle.open .hamburger-line:nth-child(3) {
-                transform: rotate(-45deg) translate(6px, -6px);
+                transform: rotate(-45deg) translate(7px, -6px);
             }
 
             .menu-overlay {
@@ -327,8 +330,8 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0,0,0,0.3);
-                z-index: 1001; /* En dessous du menu ET du bouton */
+                background: rgba(0,0,0,0.5); /* Plus foncé pour mieux séparer */
+                z-index: 1001;
                 display: none;
             }
 
@@ -336,13 +339,33 @@
                 display: block;
             }
 
-            /* S'assurer que le bouton reste visible */
-            .nav {
-                z-index: 1003;
+            /* Style amélioré pour les liens du menu mobile */
+            .mobile-menu ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .mobile-menu li {
+                padding: 16px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+
+            .mobile-menu a {
+                display: block;
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--text);
+                padding: 8px 0;
+                transition: color 0.3s ease;
+            }
+
+            .mobile-menu a:hover {
+                color: var(--accent);
             }
         }
 
-        /* Contact grid - 50/50 */
+        /* Contact grid */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -419,14 +442,15 @@
             </nav>
         </div>
 
-        <div class="mobile-menu card" id="mobileMenu">
-            <ul style="list-style:none; margin:0; padding:0">
-                <li style="padding:12px 0"><a href="#accueil">Accueil</a></li>
-                <li style="padding:12px 0"><a href="#sources">Les grandes sources</a></li>
-                <li style="padding:12px 0"><a href="#reduire">Comment réduire</a></li>
-                <li style="padding:12px 0"><a href="#ressources">Ressources</a></li>
-                <li style="padding:12px 0"><a href="#nums">Numéros</a></li>
-                <li style="padding:12px 0"><a href="#contact">Contact</a></li>
+        <!-- Menu mobile simplifié -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#sources">Les grandes sources</a></li>
+                <li><a href="#reduire">Comment réduire</a></li>
+                <li><a href="#ressources">Ressources</a></li>
+                <li><a href="#nums">Numéros</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
 
@@ -601,7 +625,6 @@
                 <p style="color:var(--muted)">UNIQUEMENT Pour proposer une ressource ou signaler une erreur.<br/>Si vous vous sentez dans le besoin, veuillez contacter les services dédiés.</p>
 
                 <div class="contact-grid">
-                    <!-- Formulaire - prend maintenant 50% -->
                     <form onsubmit="sendForm(event)">
                         <input id="name" placeholder="Ton prénom" required>
                         <input id="email" type="email" placeholder="Ton email" required>
@@ -610,7 +633,6 @@
                         <div id="formStatus" style="font-size:14px;margin-top:8px;color:var(--muted)"></div>
                     </form>
 
-                    <!-- Info block réduit - prend maintenant 50% -->
                     <div class="contact-info">
                         <h4 style="margin:0 0 12px; color: var(--text);">Infos utiles</h4>
                         <div style="margin-bottom: 12px;">Organisation : équipe étudiante — projet Design Thinking</div>
