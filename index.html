@@ -124,7 +124,7 @@
             height: 2px;
             background-color: var(--text);
             transition: all 0.3s ease;
-            transform-origin: center; /* Important pour la rotation */
+            transform-origin: center;
         }
 
         @media (max-width: 880px) {
@@ -296,12 +296,12 @@
             .mobile-menu {
                 position: fixed;
                 top: 0;
-                right: -100%; /* Changé de -260px à -100% pour couvrir tout l'écran */
-                width: 100%; /* Prend toute la largeur */
+                right: -100%;
+                width: 100%;
                 height: 100vh;
-                background: var(--card); /* Fond opaque */
+                background: var(--card);
                 box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-                padding: 100px 20px 20px 20px; /* Plus d'espace en haut */
+                padding: 100px 20px 20px 20px;
                 transition: right 0.35s ease;
                 z-index: 1002;
                 overflow-y: auto;
@@ -312,16 +312,16 @@
                 display: block;
             }
 
-            /* CORRECTION DE LA CROIX - transformation complète */
+            /* CORRECTION DE LA CROIX - SYMÉTRIQUE PARFAITE */
             .mobile-toggle.open .hamburger-line:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
+                transform: rotate(45deg) translate(6px, 6px);
             }
             .mobile-toggle.open .hamburger-line:nth-child(2) {
                 opacity: 0;
-                transform: translateX(-10px);
+                transform: scaleX(0);
             }
             .mobile-toggle.open .hamburger-line:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -6px);
+                transform: rotate(-45deg) translate(6px, -6px);
             }
 
             .menu-overlay {
@@ -330,7 +330,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0,0,0,0.5); /* Plus foncé pour mieux séparer */
+                background: rgba(0,0,0,0.5);
                 z-index: 1001;
                 display: none;
             }
