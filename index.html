@@ -16,7 +16,7 @@
             --accent: #C4A287;       /* Beige soutenu */
             --accent-2: #8B7866;     /* Marron terre */
             --accent-3: #F0E6DC;     /* Beige très clair */
-            --glass: rgba(245, 241, 235, 0.9);
+            --glass: rgba(245, 241, 235, 0.95); /* Header quasi opaque */
             
             --maxw: 1100px;
             --radius: 16px;
@@ -138,11 +138,12 @@
         @media (max-width: 880px) {
             nav ul { display: none } /* Cacher menu desktop */
             
-            /* Positionnement Absolu du bouton à droite */
+            /* Positionnement du bouton hamburger */
             .mobile-toggle {
                 display: flex;
                 position: absolute;
-                right: 0; /* Aligné à droite du conteneur */
+                /* Aligné à droite du conteneur nav (qui a déjà du padding, donc pas collé à l'écran) */
+                right: 0; 
                 top: 50%;
                 transform: translateY(-50%);
             }
@@ -157,15 +158,19 @@
             /* MENU DÉROULANT COMPACT */
             .mobile-menu {
                 position: absolute;
-                top: 100%;
-                right: 0;
+                top: 100%; /* Juste sous le header */
+                /* Aligné à droite comme le bouton hamburger */
+                right: 0; 
                 margin-top: 10px;
-                width: 240px;
+                
+                width: 240px; /* Largeur contenue */
                 height: auto;
+                
                 background: var(--card);
                 border: 1px solid var(--accent-3);
                 border-radius: var(--radius);
                 box-shadow: 0 10px 25px rgba(139, 120, 102, 0.15);
+                
                 padding: 10px 0;
                 opacity: 0;
                 transform: translateY(-10px);
@@ -445,11 +450,11 @@
             <div class="mobile-menu" id="mobileMenu">
                 <ul>
                     <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#sources">Les grandes sources</a></li>
-                    <li><a href="#reduire">Comment réduire</a></li>
-                    <li><a href="#faq">Questions fréquentes</a></li>
+                    <li><a href="#sources">Sources</a></li>
+                    <li><a href="#reduire">Réduire</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                     <li><a href="#ressources">Ressources</a></li>
-                    <li><a href="#nums">Numéros d'urgence</a></li>
+                    <li><a href="#nums">Numéros</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -694,24 +699,24 @@
             }
         }
 
-        // Empêcher la propagation du clic sur le bouton pour ne pas fermer tout de suite
+        // Empêcher la propagation pour ne pas fermer immédiatement
         btn.addEventListener("click", function(event) {
             event.stopPropagation();
             toggleMenu();
         });
 
-        // Fermer le menu si on clique sur un lien du menu
+        // Fermer le menu si on clique sur un lien
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener("click", () => {
                 if(mobileMenu.classList.contains('open')) toggleMenu();
             });
         });
 
-        // --- CLICK OUTSIDE (Fermer si clic ailleurs) ---
+        // --- FERMETURE AU CLIC AILLEURS (Click Outside) ---
         document.addEventListener('click', function(event) {
             // Si le menu est ouvert
             if (mobileMenu.classList.contains('open')) {
-                // Et que l'élément cliqué n'est NI le menu NI le bouton
+                // Et qu'on ne clique ni sur le menu, ni sur le bouton
                 if (!mobileMenu.contains(event.target) && !btn.contains(event.target)) {
                     toggleMenu(); // On ferme
                 }
@@ -773,4 +778,3 @@
     </script>
 </body>
 </html>
-
