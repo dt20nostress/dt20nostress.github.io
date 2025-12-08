@@ -16,7 +16,7 @@
             --accent: #C4A287;
             --accent-2: #8B7866;
             --accent-3: #F0E6DC;
-            --glass: rgba(245, 241, 235, 0.7);
+            --glass: rgba(245, 241, 235, 0.9); /* Un peu plus opaque pour le header */
             
             --maxw: 1100px;
             --radius: 16px;
@@ -39,7 +39,7 @@
 
         /* Header & Nav */
         header {
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(10px);
             background: var(--glass);
             position: sticky;
             top: 0;
@@ -58,7 +58,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative;
+            position: relative; /* Important pour le positionnement du menu */
         }
 
         .brand {
@@ -115,20 +115,20 @@
             height: 44px;
             justify-content: center;
             align-items: center;
-            gap: 4px; /* Important pour le calcul */
+            gap: 4px;
             z-index: 1003;
             position: relative;
         }
 
         .hamburger-line {
             width: 20px;
-            height: 2px; /* Important pour le calcul */
+            height: 2px;
             background-color: var(--text);
             transition: all 0.3s ease;
             transform-origin: center;
         }
 
-        /* Calcul : gap (4px) + height (2px) = 6px de déplacement */
+        /* Animation Croix Parfaite */
         .mobile-toggle.open .hamburger-line:nth-child(1) {
             transform: translateY(6px) rotate(45deg);
         }
@@ -139,7 +139,7 @@
             transform: translateY(-6px) rotate(-45deg);
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive & Menu Déroulant */
         @media (max-width: 880px) {
             nav ul { display: none }
             .mobile-toggle { display: flex }
@@ -149,24 +149,32 @@
             .cols { grid-template-columns: 1fr !important; }
             .card { padding: 18px !important; }
 
-            /* Mobile Menu Drawer */
+            /* --- NOUVEAU MENU DÉROULANT COMPACT --- */
             .mobile-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%; /* Pleine largeur sur mobile */
-                height: 100vh;
-                background: var(--card);
-                box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-                padding: 90px 24px 24px 24px;
-                transition: right 0.35s ease;
+                position: absolute;
+                top: 100%; /* Juste en dessous de la barre de nav */
+                right: 0;
+                margin-top: 10px; /* Petit espace */
+                width: 240px; /* Largeur compacte */
+                height: auto; /* Hauteur selon le contenu */
+                
+                background: var(--card); /* Fond blanc style carte */
+                border: 1px solid var(--accent-3); /* Bordure beige subtile */
+                border-radius: var(--radius);
+                box-shadow: 0 10px 25px rgba(139, 120, 102, 0.15); /* Ombre douce et chaude */
+                
+                padding: 10px 0;
+                opacity: 0;
+                transform: translateY(-10px);
+                pointer-events: none;
+                transition: all 0.3s ease;
                 z-index: 1002;
-                overflow-y: auto;
-                display: block;
             }
 
             .mobile-menu.open {
-                right: 0;
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
             }
 
             .mobile-menu ul {
@@ -176,25 +184,32 @@
             }
 
             .mobile-menu li {
-                border-bottom: 1px solid rgba(0,0,0,0.05);
+                border: 0; /* Plus de bordure entre les éléments */
             }
 
             .mobile-menu a {
                 display: block;
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 500;
                 color: var(--text);
-                padding: 16px 0;
+                padding: 10px 20px;
+                border-radius: 8px;
+                margin: 0 8px;
             }
 
+            .mobile-menu a:hover {
+                background: var(--bg); /* Fond beige au survol */
+                color: var(--accent-2);
+            }
+
+            /* Overlay discret pour fermer en cliquant à côté */
             .menu-overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0,0,0,0.4);
-                backdrop-filter: blur(2px);
+                background: rgba(0,0,0,0); /* Transparent car menu compact */
                 z-index: 1001;
                 display: none;
             }
@@ -208,7 +223,7 @@
                 grid-template-columns: 1fr !important;
             }
             .contact-grid > div:nth-child(2) {
-                order: -1; /* Info au dessus du formulaire */
+                order: -1;
             }
         }
 
@@ -400,13 +415,13 @@
                 </div>
             </div>
 
-            <nav>
-                <button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
+            <button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
+            <nav>
                 <ul id="navList">
                     <li><a href="#accueil">Accueil</a></li>
                     <li><a href="#sources">Sources</a></li>
@@ -417,19 +432,20 @@
                     <li><a href="#contact" class="cta">Contact</a></li>
                 </ul>
             </nav>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#sources">Les grandes sources</a></li>
+                    <li><a href="#reduire">Comment réduire</a></li>
+                    <li><a href="#faq">Questions fréquentes</a></li>
+                    <li><a href="#ressources">Ressources</a></li>
+                    <li><a href="#nums">Numéros d'urgence</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
         </div>
 
-        <div class="mobile-menu" id="mobileMenu">
-            <ul>
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#sources">Les grandes sources</a></li>
-                <li><a href="#reduire">Comment réduire</a></li>
-                <li><a href="#faq">Questions fréquentes</a></li>
-                <li><a href="#ressources">Ressources</a></li>
-                <li><a href="#nums">Numéros d'urgence</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
         <div class="menu-overlay" id="menuOverlay"></div>
     </header>
 
@@ -452,7 +468,7 @@
                 </div>
 
                 <aside class="card">
-                    <h3 style="margin:0 0 8px">Actions rapides</h3>
+                    <h3 style="margin:0 0 8px">Actions rapides ⚡️</h3>
                     <div class="small muted">Si tu ne sais pas par où commencer :</div>
                     <ol style="padding-left:18px; margin:10px 0 0; color: var(--text);">
                         <li><strong>Respire 4-4-4</strong> : inspire 4s / retiens 4s / expire 4s</li>
@@ -465,7 +481,7 @@
 
         <section id="sources">
             <div class="card">
-                <h2>Les grandes sources de stress</h2>
+                <h2>Les grandes sources de stress 😥</h2>
                 <p class="muted">Ces facteurs reviennent fréquemment et peuvent fragiliser la santé mentale.</p>
 
                 <div class="cols" style="margin-top:12px">
@@ -494,7 +510,7 @@
 
         <section id="reduire">
             <div class="card">
-                <h2>Comment réduire le stress ?</h2>
+                <h2>Comment réduire le stress ? 🧘</h2>
 
                 <div class="cols" style="margin-top:12px">
                     <div>
@@ -568,7 +584,7 @@
 
         <section id="ressources">
             <div class="card">
-                <h2>Ressources et aides (France)</h2>
+                <h2>Ressources et aides (France) 🤝</h2>
                 <p class="muted">Liens utiles et services gratuits.</p>
 
                 <div class="cols" style="margin-top:12px">
@@ -619,7 +635,7 @@
 
         <section id="contact">
             <div class="card">
-                <h2>Contact</h2>
+                <h2>Contact 📧</h2>
                 <p style="color:var(--muted)">Pour signaler une erreur ou proposer une ressource (pas d'urgence médicale ici).</p>
 
                 <div class="contact-grid">
@@ -739,4 +755,3 @@
     </script>
 </body>
 </html>
-
