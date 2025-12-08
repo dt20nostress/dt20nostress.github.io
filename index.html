@@ -13,9 +13,9 @@
             --card: #FFFFFF; 
             --text: #3E3B39;
             --muted: #A88F7A;
-            --accent: #C4A287;
-            --accent-2: #8B7866;
-            --accent-3: #F0E6DC;
+            --accent: #C4A287;       /* Beige soutenu */
+            --accent-2: #8B7866;     /* Marron terre */
+            --accent-3: #F0E6DC;     /* Beige très clair */
             --glass: rgba(245, 241, 235, 0.9);
             
             --maxw: 1100px;
@@ -32,12 +32,18 @@
             line-height: 1.6;
         }
 
-        .logo { color: #fff }
+        /* --- GLOBAL --- */
         * { box-sizing: border-box }
         a { color: var(--accent-2); text-decoration: none }
         a:hover { color: var(--accent); }
+        
+        .container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: var(--gap);
+        }
 
-        /* Header & Nav */
+        /* --- HEADER & NAV --- */
         header {
             backdrop-filter: blur(10px);
             background: var(--glass);
@@ -47,18 +53,13 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .container {
-            max-width: var(--maxw);
-            margin: 0 auto;
-            padding: var(--gap);
-        }
-
         .nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative;
+            position: relative; /* Référence pour le menu mobile */
+            min-height: 60px;
         }
 
         .brand {
@@ -78,6 +79,7 @@
             font-weight: 700;
         }
 
+        /* Desktop Menu */
         nav ul {
             display: flex;
             gap: 14px;
@@ -102,9 +104,9 @@
             color: white;
         }
 
-        /* --- MOBILE TOGGLE & ANIMATION CROIX --- */
+        /* --- BOUTON HAMBURGER (MOBILE) --- */
         .mobile-toggle {
-            display: none;
+            display: none; /* Caché sur PC */
             background: transparent;
             border: 1px solid rgba(0,0,0,0.1);
             padding: 8px;
@@ -127,26 +129,20 @@
             transform-origin: center;
         }
 
-        /* Animation Croix Parfaite */
-        .mobile-toggle.open .hamburger-line:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
-        }
-        .mobile-toggle.open .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        .mobile-toggle.open .hamburger-line:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
-        }
+        /* Animation Croix */
+        .mobile-toggle.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .mobile-toggle.open .hamburger-line:nth-child(2) { opacity: 0; }
+        .mobile-toggle.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-        /* Mobile Responsive & Menu Déroulant */
+        /* --- RESPONSIVE MOBILE (<880px) --- */
         @media (max-width: 880px) {
-            nav ul { display: none }
+            nav ul { display: none } /* Cacher menu desktop */
             
-            /* Positionnement Absolu du bouton (à droite) */
+            /* Positionnement Absolu du bouton à droite */
             .mobile-toggle {
                 display: flex;
                 position: absolute;
-                right: 12px; /* Décalé légèrement du bord */
+                right: 0; /* Aligné à droite du conteneur */
                 top: 50%;
                 transform: translateY(-50%);
             }
@@ -155,6 +151,8 @@
             .hero-grid { grid-template-columns: 1fr !important; }
             .cols { grid-template-columns: 1fr !important; }
             .card { padding: 18px !important; }
+            .contact-grid { grid-template-columns: 1fr !important; }
+            .contact-grid > div:nth-child(2) { order: -1; }
 
             /* MENU DÉROULANT COMPACT */
             .mobile-menu {
@@ -172,7 +170,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
                 pointer-events: none;
-                transition: all 0.3s ease;
+                transition: all 0.2s ease;
                 z-index: 1002;
             }
 
@@ -188,30 +186,19 @@
                 padding: 0;
             }
 
-            .mobile-menu li {
-                border: 0;
-            }
-
             .mobile-menu a {
                 display: block;
-                font-size: 16px;
+                font-size: 15px;
                 font-weight: 500;
                 color: var(--text);
                 padding: 10px 20px;
+                margin: 2px 8px;
                 border-radius: 8px;
-                margin: 0 8px;
             }
 
             .mobile-menu a:hover {
                 background: var(--bg);
                 color: var(--accent-2);
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .contact-grid > div:nth-child(2) {
-                order: -1;
             }
         }
 
@@ -219,7 +206,7 @@
             .mobile-menu { display: none !important; }
         }
 
-        /* Hero */
+        /* --- HERO SECTION --- */
         .hero { padding: 42px 0 }
 
         .hero-grid {
@@ -262,10 +249,10 @@
             font-size: 14px;
         }
 
-        /* Sections General */
+        /* --- SECTIONS STANDARD --- */
         section { padding: 22px 0 }
         h2 { margin: 0 0 12px; color: var(--text); }
-        h3 { color: var(--text); }
+        h3 { color: var(--text); margin-bottom: 12px; }
 
         .cols {
             display: grid;
@@ -281,13 +268,7 @@
 
         .list li { margin-bottom: 6px; }
 
-        .resource a { 
-            display: block; 
-            margin: 6px 0;
-            transition: color 0.3s ease;
-        }
-
-        /* FAQ Styling */
+        /* --- FAQ SECTION --- */
         .faq-item {
             border: 1px solid rgba(0,0,0,0.08);
             border-radius: 12px;
@@ -305,9 +286,7 @@
             align-items: center;
         }
         
-        .faq-question:hover {
-            background: #E8DCCF;
-        }
+        .faq-question:hover { background: #E8DCCF; }
 
         .faq-answer {
             max-height: 0;
@@ -322,7 +301,56 @@
             padding: 14px;
         }
 
-        /* Footer */
+        /* --- RESSOURCES AMELIORÉES --- */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .resource-category {
+            background: var(--bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .resource-category h3 {
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            color: var(--accent-2);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .resource-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card);
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+
+        .resource-link:last-child { margin-bottom: 0; }
+
+        .resource-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(196, 162, 135, 0.2);
+            color: var(--accent-2);
+            border-color: var(--accent);
+        }
+
+        /* --- FOOTER --- */
         footer {
             padding: 22px 0;
             color: var(--muted);
@@ -333,7 +361,7 @@
         .small { font-size: 14px; color: var(--muted) }
         .stack { display: flex; flex-direction: column; gap: 10px }
 
-        /* Form & Contact */
+        /* --- CONTACT & FORM --- */
         form { display: grid; gap: 10px; }
         
         .contact-grid {
@@ -379,15 +407,9 @@
             font-family: inherit;
         }
 
-        button.primary:hover {
-            background: var(--accent-2);
-        }
+        button.primary:hover { background: var(--accent-2); }
 
-        /* Numéros Style */
-        #nums a {
-            color: var(--accent-2);
-            font-weight: 600;
-        }
+        #nums a { color: var(--accent-2); font-weight: 600; }
     </style>
 </head>
 
@@ -570,37 +592,39 @@
         <section id="ressources">
             <div class="card">
                 <h2>Ressources et aides (France)</h2>
-                <p class="muted">Liens utiles et services gratuits.</p>
+                <p class="muted">Une sélection de services gratuits pour alléger votre quotidien.</p>
 
-                <div class="cols" style="margin-top:12px">
-                    <div class="resource">
-                        <h3>Aides alimentaires & sociales</h3>
-                        <a href="https://www.lescrous.fr/" target="_blank"><strong>Crous</strong> — Repas à 1€ (boursiers)</a>
-                        <a href="https://www.fage.org/" target="_blank"><strong>AGORAé</strong> — Épiceries solidaires</a>
-                        <a href="https://www.restosducoeur.org" target="_blank">Restos du Cœur</a>
+                <div class="resource-grid">
+                    
+                    <div class="resource-category">
+                        <h3>🍽️ Alimentation</h3>
+                        <a href="https://www.lescrous.fr/" target="_blank" class="resource-link">Repas Crous à 1€</a>
+                        <a href="https://www.fage.org/" target="_blank" class="resource-link">AGORAé (Épiceries)</a>
+                        <a href="https://www.restosducoeur.org" target="_blank" class="resource-link">Restos du Cœur</a>
+                        <a href="https://www.banquealimentaire.org" target="_blank" class="resource-link">Banques Alimentaires</a>
                     </div>
 
-                    <div class="resource">
-                        <h3>Santé & Écoute</h3>
-                        <a href="https://www.santepsy.etudiant.gouv.fr" target="_blank"><strong>Santé Psy Étudiants</strong></a>
-                        <a href="https://www.nightline.fr" target="_blank"><strong>Nightline</strong> (écoute par étudiants)</a>
-                        <a href="https://www.filsantejeunes.com" target="_blank">Fil Santé Jeunes</a>
-                    </div>
-                </div>
-
-                <div style="margin-top:12px" class="cols">
-                    <div class="resource">
-                        <h3>Logement</h3>
-                        <a href="https://www.visale.fr" target="_blank"><strong>Visale</strong> (Garant gratuit)</a>
-                        <a href="https://www.caf.fr" target="_blank">CAF (APL/ALS)</a>
-                        <a href="https://trouverunlogement.lescrous.fr/" target="_blank">Trouver un logement Crous</a>
+                    <div class="resource-category">
+                        <h3>🧠 Santé Mentale</h3>
+                        <a href="https://www.santepsy.etudiant.gouv.fr" target="_blank" class="resource-link">Santé Psy (8 séances offertes)</a>
+                        <a href="https://www.nightline.fr" target="_blank" class="resource-link">Nightline (Écoute nocturne)</a>
+                        <a href="https://www.filsantejeunes.com" target="_blank" class="resource-link">Fil Santé Jeunes</a>
                     </div>
 
-                    <div class="resource">
-                        <h3>Santé sexuelle</h3>
-                        <a href="https://www.planning-familial.org" target="_blank">Planning Familial</a>
-                        <a href="https://www.sante.fr/trouver-un-cegidd/" target="_blank">CeGIDD (Dépistage gratuit)</a>
+                    <div class="resource-category">
+                        <h3>🏠 Logement & Aides</h3>
+                        <a href="https://www.visale.fr" target="_blank" class="resource-link">Visale (Garant gratuit)</a>
+                        <a href="https://www.caf.fr" target="_blank" class="resource-link">CAF (APL / ALS)</a>
+                        <a href="https://trouverunlogement.lescrous.fr/" target="_blank" class="resource-link">Trouver un logement Crous</a>
                     </div>
+
+                    <div class="resource-category">
+                        <h3>❤️ Santé & Sexualité</h3>
+                        <a href="https://www.planning-familial.org" target="_blank" class="resource-link">Planning Familial</a>
+                        <a href="https://www.sante.fr/trouver-un-cegidd/" target="_blank" class="resource-link">CeGIDD (Dépistage gratuit)</a>
+                        <a href="https://www.ameli.fr" target="_blank" class="resource-link">Ameli (Compte & Droits)</a>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -653,7 +677,7 @@
     </footer>
 
     <script>
-        // Gestion Menu Mobile
+        // --- GESTION DU MENU MOBILE ---
         const btn = document.getElementById("mobileBtn");
         const mobileMenu = document.getElementById("mobileMenu");
 
@@ -662,40 +686,39 @@
             btn.setAttribute("aria-expanded", !isOpen);
             
             if (isOpen) {
-                // Fermer
                 mobileMenu.classList.remove("open");
                 btn.classList.remove("open");
             } else {
-                // Ouvrir
                 mobileMenu.classList.add("open");
                 btn.classList.add("open");
             }
         }
 
+        // Empêcher la propagation du clic sur le bouton pour ne pas fermer tout de suite
         btn.addEventListener("click", function(event) {
-            event.stopPropagation(); // Empêche le clic sur le bouton de déclencher l'événement document
+            event.stopPropagation();
             toggleMenu();
         });
 
-        // Fermer le menu au clic sur un lien
+        // Fermer le menu si on clique sur un lien du menu
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener("click", () => {
                 if(mobileMenu.classList.contains('open')) toggleMenu();
             });
         });
 
-        // Fermer le menu si on clique n'importe où ailleurs sur la page
+        // --- CLICK OUTSIDE (Fermer si clic ailleurs) ---
         document.addEventListener('click', function(event) {
-            const isClickInsideMenu = mobileMenu.contains(event.target);
-            const isClickOnButton = btn.contains(event.target);
-
-            // Si le menu est ouvert ET que le clic n'est ni dans le menu ni sur le bouton
-            if (mobileMenu.classList.contains('open') && !isClickInsideMenu && !isClickOnButton) {
-                toggleMenu();
+            // Si le menu est ouvert
+            if (mobileMenu.classList.contains('open')) {
+                // Et que l'élément cliqué n'est NI le menu NI le bouton
+                if (!mobileMenu.contains(event.target) && !btn.contains(event.target)) {
+                    toggleMenu(); // On ferme
+                }
             }
         });
 
-        // Smooth Scroll pour tous les liens ancrés
+        // --- SMOOTH SCROLL ---
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e){
                 const href = this.getAttribute('href');
@@ -715,7 +738,7 @@
             });
         });
 
-        // Gestion FAQ (Accordéon)
+        // --- FAQ ACCORDION ---
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
                 const faqItem = button.parentElement;
@@ -730,7 +753,7 @@
             });
         });
 
-        // Simulation Formulaire
+        // --- SIMULATION FORMULAIRE ---
         function sendForm(e){
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
