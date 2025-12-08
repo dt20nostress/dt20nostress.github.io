@@ -1,366 +1,823 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Comprendre et réduire le stress étudiant</title>
-    <meta name="description" content="Plateforme d'information, prévention et accompagnement pour le stress étudiant." />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Comprendre et réduire le stress étudiant</title>
+    <meta name="description" content="Plateforme d'information, prévention et accompagnement pour le stress étudiant." />
 
-    <style>
-        :root {
-            --bg: #F5F1EB;
-            --card: #FFFFFF; 
-            --text: #3E3B39;
-            --muted: #A88F7A;
-            --accent: #C4A287;
-            --accent-2: #8B7866;
-            --accent-3: #F0E6DC;
-            --glass: rgba(245, 241, 235, 0.7);
-            
-            --maxw: 1100px;
-            --radius: 16px;
-            --gap: 18px;
-            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-        }
+    <style>
+        :root {
+            --bg: #F5F1EB;
+            --card: #FFFFFF; 
+            --text: #3E3B39;
+            --muted: #A88F7A;
+            --accent: #C4A287;
+            --accent-2: #8B7866;
+            --accent-3: #F0E6DC;
+            --glass: rgba(245, 241, 235, 0.7);
+            
+            --maxw: 1100px;
+            --radius: 16px;
+            --gap: 18px;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-            line-height: 1.6;
-        }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
 
-        * { box-sizing: border-box }
-        a { color: var(--accent-2); text-decoration: none }
-        a:hover { color: var(--accent); }
+        .logo { color: #fff }
+        * { box-sizing: border-box }
+        a { color: var(--accent-2); text-decoration: none }
+        a:hover { color: var(--accent); }
 
-        header {
-            backdrop-filter: blur(6px);
-            background: var(--glass);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
+        header {
+            backdrop-filter: blur(6px);
+            background: var(--glass);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
 
-        .container {
-            max-width: var(--maxw);
-            margin: 0 auto;
-            padding: var(--gap);
-        }
+        .container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: var(--gap);
+        }
 
-        /* Navbar */
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
+        /* Navbar */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            position: relative;
+        }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .logo {
-            width: 44px;
-            height: 44px;
-            display: grid;
-            place-items: center;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-3));
-            color: var(--text);
-            font-weight: 700;
-        }
+        .logo {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-3));
+            color: var(--text);
+            font-weight: 700;
+        }
 
-        nav ul {
-            display: flex;
-            gap: 14px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+        nav ul {
+            display: flex;
+            gap: 14px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-        nav li { font-size: 15px }
+        nav li { font-size: 15px }
 
-        .cta {
-            background: var(--accent);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+        .cta {
+            background: var(--accent);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
 
-        /* Mobile - BOUTON TOGGLE CORRIGÉ */
-        .mobile-toggle {
-            display: none;
-            background: transparent;
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 8px;
-            border-radius: 10px;
-            flex-direction: column;
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            justify-content: center;
-            align-items: center;
-            gap: 4px; /* Important pour le calcul de la croix */
-            position: relative;
-            z-index: 1100;
-        }
+        .cta:hover {
+            background: var(--accent-2);
+            color: white;
+        }
 
-        .hamburger-line {
-            width: 20px;
-            height: 2px;
-            background-color: var(--text);
-            transition: all 0.3s ease;
-            transform-origin: center;
-        }
+        /* Mobile - CORRECTIONS */
+        .mobile-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 8px;
+            border-radius: 10px;
+            flex-direction: column;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            z-index: 1003;
+            position: relative;
+        }
 
-        /* ANIMATION CROIX PARFAITE */
-        .mobile-toggle.open .hamburger-line:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
-        }
-        .mobile-toggle.open .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        .mobile-toggle.open .hamburger-line:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
-        }
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: var(--text);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
 
-        @media (max-width: 880px) {
-            nav ul { display: none }
-            .mobile-toggle { display: flex }
-            
-            .mobile-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--card);
-                padding: 80px 20px 20px;
-                transition: right 0.3s ease;
-                z-index: 1050;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
-            .mobile-menu.open { right: 0; }
-        }
+        @media (max-width: 880px) {
+            nav ul { display: none }
+            .mobile-toggle { 
+                display: flex;
+                position: relative;
+                z-index: 1003;
+            }
+            .mobile-menu { display: none }
+            .hero { padding: 24px 0 }
+        }
 
-        /* Hero & Content */
-        .hero { padding: 42px 0 }
-        .hero-grid { display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
-        .card { background: var(--card); border-radius: var(--radius); padding: var(--gap); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .headline { font-size: 28px; margin: 0 0 8px; }
-        .sub { color: var(--muted); margin: 0 0 12px; }
-        
-        .pill { background: var(--accent); color: white; padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: 13px; }
-        .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
-        .list { padding-left: 18px; margin: 0; }
-        
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .contact-info { background: var(--accent-3); padding: 20px; border-radius: var(--radius); font-size: 14px; }
+        @media (min-width: 881px) {
+            .mobile-toggle { display: none }
+            nav ul { display: flex }
+            .mobile-menu { display: none !important }
+        }
 
-        @media (max-width: 880px) {
-            .hero-grid, .cols, .contact-grid { grid-template-columns: 1fr; }
-            #contact .contact-grid > div:nth-child(1) { order: 2; }
-            #contact .contact-grid > div:nth-child(2) { order: 1; }
-        }
+        /* Hero */
+        .hero { padding: 42px 0 }
 
-        .menu-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
-            display: none; z-index: 1040;
-        }
-        .menu-overlay.active { display: block; }
-    </style>
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: var(--gap);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .headline { 
+            font-size: 28px; 
+            margin: 0 0 8px;
+            color: var(--text);
+        }
+
+        .sub { 
+            color: var(--muted); 
+            margin: 0 0 12px;
+        }
+
+        .quick-nums {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background: var(--accent);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Sections */
+        section { padding: 22px 0 }
+        h2 { 
+            margin: 0 0 12px;
+            color: var(--text);
+        }
+        h3 {
+            color: var(--text);
+        }
+
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--text);
+        }
+
+        .list li {
+            margin-bottom: 6px;
+        }
+
+        .resource a { 
+            display: block; 
+            margin: 6px 0;
+            transition: color 0.3s ease;
+        }
+
+        .resource a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 22px 0;
+            color: var(--muted);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Small lists */
+        .small { font-size: 14px; color: var(--muted) }
+        .stack { display: flex; flex-direction: column; gap: 10px }
+
+        /* Accordion */
+        .accordion button {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 0;
+            padding: 12px 10px;
+            font-size: 15px;
+            color: inherit;
+        }
+
+        .accordion .panel {
+            padding: 0 10px 12px;
+            color: var(--muted);
+        }
+
+        /* Form */
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        input, textarea, select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: var(--card);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button.primary {
+            background: var(--accent);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            border: 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: inherit;
+        }
+
+        button.primary:hover {
+            background: var(--accent-2);
+        }
+
+        /* Mobile menu panel - CORRECTIONS COMPLÈTES */
+        @media (max-width: 880px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .cols { grid-template-columns: 1fr }
+            .card { padding: 14px }
+
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--card);
+                box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+                padding: 100px 20px 20px 20px;
+                transition: right 0.35s ease;
+                z-index: 1002;
+                overflow-y: auto;
+            }
+
+            .mobile-menu.open {
+                right: 0;
+                display: block;
+            }
+
+            /* CORRECTION DE LA CROIX - SYMÉTRIQUE PARFAITE */
+            .mobile-toggle.open .hamburger-line:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            .mobile-toggle.open .hamburger-line:nth-child(2) {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            .mobile-toggle.open .hamburger-line:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 1001;
+                display: none;
+            }
+
+            .menu-overlay.active {
+                display: block;
+            }
+
+            /* Style amélioré pour les liens du menu mobile */
+            .mobile-menu ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .mobile-menu li {
+                padding: 16px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+
+            .mobile-menu a {
+                display: block;
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--text);
+                padding: 8px 0;
+                transition: color 0.3s ease;
+            }
+
+            .mobile-menu a:hover {
+                color: var(--accent);
+            }
+        }
+
+        /* Contact grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Style spécifique pour le bloc info contact */
+        .contact-info {
+            background: var(--accent-3);
+            padding: 20px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            color: var(--muted);
+            height: fit-content;
+        }
+
+        /* Make contact responsive */
+        @media (max-width: 880px) {
+            #contact .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            #contact .contact-grid > div:nth-child(1) {
+                order: 2;
+            }
+            #contact .contact-grid > div:nth-child(2) {
+                order: 1;
+            }
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        /* Style pour les liens dans les numéros */
+        #nums a {
+            color: var(--accent-2);
+            font-weight: 600;
+        }
+
+        #nums a:hover {
+            color: var(--accent);
+        }
+
+        /* Nouveau style pour la section FAQ */
+        .faq-item {
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--accent-3);
+            padding: 12px var(--gap);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 var(--gap);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background: var(--card);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* Ajuster si nécessaire */
+            padding: 12px var(--gap);
+        }
+
+        .faq-item p { margin-top: 0; }
+        .faq-item li { color: var(--muted); margin-bottom: 4px; }
+    </style>
 </head>
 
 <body>
-    <header>
-        <div class="container nav">
-            <div class="brand">
-                <div class="logo">☯</div>
-                <div>
-                    <div style="font-weight:700">Comprendre & réduire le stress étudiant</div>
-                    <div class="small muted">Informer • Prévenir • Accompagner</div>
-                </div>
-            </div>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <div class="logo">☯</div>
+                <div>
+                    <div style="font-weight:700">Comprendre & réduire le stress étudiant</div>
+                    <div class="small muted">Informer • Prévenir • Accompagner</div>
+                </div>
+            </div>
 
-            <nav>
-                <button class="mobile-toggle" id="mobileBtn" aria-expanded="false">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
+            <nav>
+                <button class="mobile-toggle" id="mobileBtn" aria-expanded="false" aria-label="Menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
 
-                <ul id="navList">
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#sources">Sources</a></li>
-                    <li><a href="#reduire">Comment réduire le stress</a></li>
-                    <li><a href="#ressources">Ressources</a></li>
-                    <li><a href="#nums">Numéros</a></li>
-                    <li><a href="#contact" class="cta">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+                <ul id="navList">
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#sources">Sources</a></li>
+                    <li><a href="#reduire">Comment réduire<br><CENTER>le stress</CENTER></a></li>
+                    <li><a href="#ressources">Ressources</a></li>
+                    <li><a href="#nums">Numéros</a></li>
+                    <li><a href="#contact" class="cta">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
 
-        <div class="mobile-menu" id="mobileMenu">
-            <ul style="list-style: none; padding: 0;">
-                <li style="padding: 15px 0;"><a href="#accueil">Accueil</a></li>
-                <li style="padding: 15px 0;"><a href="#sources">Sources</a></li>
-                <li style="padding: 15px 0;"><a href="#reduire">Comment réduire</a></li>
-                <li style="padding: 15px 0;"><a href="#ressources">Ressources</a></li>
-                <li style="padding: 15px 0;"><a href="#nums">Numéros</a></li>
-                <li style="padding: 15px 0;"><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        <div class="menu-overlay" id="menuOverlay"></div>
-    </header>
+                <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#sources">Les grandes sources</a></li>
+                <li><a href="#reduire">Comment réduire</a></li>
+                <li><a href="#ressources">Ressources</a></li>
+                <li><a href="#nums">Numéros</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
 
-    <main class="container">
-        <section id="accueil" class="hero">
-            <div class="hero-grid">
-                <div class="card">
-                    <h1 class="headline">Bienvenue — Plateforme dédiée au stress étudiant</h1>
-                    <p class="sub">Informer, prévenir et accompagner les étudiants dans toutes les dimensions.</p>
-                    <div class="quick-nums">
-                        <span class="pill">Suicide : 3114</span>
-                        <span class="pill">Harcèlement : 3018</span>
-                        <span class="pill">Violences : 3919</span>
-                    </div>
-                </div>
-                <aside class="card">
-                    <h3>Actions rapides</h3>
-                    <ul class="list">
-                        <li>Respire 4-4-4</li>
-                        <li>Parle à un pair (Nightline)</li>
-                        <li>Méthode Pomodoro</li>
-                    </ul>
-                </aside>
-            </div>
-        </section>
+        <div class="menu-overlay" id="menuOverlay"></div>
+    </header>
 
-        <section id="sources">
-            <div class="card">
-                <h2>Les sources de stress</h2>
-                <div class="cols">
-                    <div>
-                        <h3>Études</h3>
-                        <ul class="list">
-                            <li>Examens</li>
-                            <li>Orientation</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Vie perso</h3>
-                        <ul class="list">
-                            <li>Isolement</li>
-                            <li>Précarité</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="container">
+        <section id="accueil" class="hero">
+            <div class="hero-grid">
+                <div class="card">
+                    <h1 class="headline">Bienvenue — Plateforme dédiée au stress étudiant</h1>
+                    <p class="sub">Informer, prévenir et accompagner les étudiants dans toutes les dimensions : académique, sociale, psychologique, économique et personnelle.</p>
 
-        <section id="reduire">
-            <div class="card">
-                <h2>Comment réduire ?</h2>
-                <div class="cols">
-                    <div>
-                        <h3>A — Hygiène</h3>
-                        <ul class="list">
-                            <li>Sommeil régulier</li>
-                            <li>Sport</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>B — Mental</h3>
-                        <ul class="list">
-                            <li>Aide pro</li>
-                            <li>Respiration</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    <div class="stack">
+                        <div class="quick-nums">
+                            <span class="pill">Prévention suicide : 3114 (24/7)</span>
+                            <span class="pill">Harcèlement : 3018</span>
+                            <span class="pill">Violences sexistes : 3919</span>
+                        </div>
+                        <p class="muted">Ce site vous aide à : comprendre les sources du stress, reconnaître les signes, connaître vos droits et aides, améliorer organisation et hygiène de vie, découvrir les ressources en France.</p>
+                    </div>
+                </div>
 
-        <section id="ressources">
-            <div class="card">
-                <h2>Ressources</h2>
-                <a href="https://www.santepsy.etudiant.gouv.fr" target="_blank">Santé Psy Étudiants (Gratuit)</a>
-            </div>
-        </section>
+                <aside class="card">
+                    <h3 style="margin:0 0 8px">Actions rapides</h3>
+                    <div class="small muted">Si tu ne sais pas par où commencer :</div>
+                    <ol style="padding-left:18px; margin:10px 0 0; color: var(--text);">
+                        <li>**Respire 4-4-4** : inspire 4s / retiens 4s / expire 4s</li>
+                        <li>Parle à un pair (<a href="https://www.nightline.fr" target="_blank">Nightline</a>) ou un professionnel (<a href="https://www.santepsy.etudiant.gouv.fr" target="_blank">Santé Psy Etudiants</a>)</li>
+                        <li>**Planifie une petite tâche** — 25 minutes max (Pomodoro)</li>
+                    </ol>
+                </aside>
+            </div>
+        </section>
 
-        <section id="nums">
-            <div class="card">
-                <h2>Numéros utiles</h2>
-                <p><strong>3114</strong> : Prévention suicide</p>
-            </div>
-        </section>
+        <section id="sources">
+            <div class="card">
+                <h2>Les grandes sources de stress étudiant 😥</h2>
+                <p class="muted">Ces facteurs reviennent fréquemment et peuvent fragiliser la santé mentale et physique.</p>
 
-        <section id="contact">
-            <div class="card">
-                <h2>Contact</h2>
-                <div class="contact-grid">
-                    <form onsubmit="sendForm(event)">
-                        <input id="name" placeholder="Prénom" required style="width:100%; margin-bottom:10px; padding:10px; border-radius:8px; border:1px solid #ddd;">
-                        <input id="email" type="email" placeholder="Email" required style="width:100%; margin-bottom:10px; padding:10px; border-radius:8px; border:1px solid #ddd;">
-                        <textarea id="message" rows="4" placeholder="Message" required style="width:100%; margin-bottom:10px; padding:10px; border-radius:8px; border:1px solid #ddd;"></textarea>
-                        <button class="primary" type="submit">Envoyer</button>
-                    </form>
-                    <div class="contact-info">
-                        <h4>Aide & Infos</h4>
-                        <p>dt20.no.stress@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+                <div class="cols" style="margin-top:12px">
+                    <div>
+                        <h3>Études & organisation</h3>
+                        <ul class="list">
+                            <li>**Pression des résultats**, examens et notes</li>
+                            <li>**Recherche de stage** / alternance / emploi, pression sur l'orientation</li>
+                            <li>Projets et travail de groupe (gestion des conflits, partage de la charge)</li>
+                            <li>**Surcharge de travail** et manque d'organisation / de méthodes efficaces</li>
+                        </ul>
+                    </div>
 
-    <footer>
-        <div class="container" style="text-align: center; font-size: 13px; color: var(--muted);">
-            © Projet Design Thinking — Plateforme Stress Étudiant
-        </div>
-    </footer>
+                    <div>
+                        <h3>Vie personnelle & santé</h3>
+                        <ul class="list">
+                            <li>**Précarité financière** (logement, nourriture, soins)</li>
+                            <li>**Isolement social**, rupture familiale, conflits en colocation</li>
+                            <li>**Sommeil** perturbé, fatigue chronique, manque d'activité physique</li>
+                            <li>Charge émotionnelle, **santé mentale** (anxiété, dépression, etc.)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <script>
-        const btn = document.getElementById("mobileBtn");
-        const mobileMenu = document.getElementById("mobileMenu");
-        const menuOverlay = document.getElementById("menuOverlay");
+        <section id="reduire">
+            <div class="card">
+                <h2>Comment réduire le stress ? 🧘</h2>
 
-        function toggleMenu() {
-            const isOpen = mobileMenu.classList.contains("open");
-            if (isOpen) {
-                mobileMenu.classList.remove("open");
-                btn.classList.remove("open");
-                menuOverlay.classList.remove("active");
-                btn.setAttribute("aria-expanded", "false");
-            } else {
-                mobileMenu.classList.add("open");
-                btn.classList.add("open");
-                menuOverlay.classList.add("active");
-                btn.setAttribute("aria-expanded", "true");
-            }
-        }
+                <div class="cols" style="margin-top:12px">
+                    <div>
+                        <h3>A — Hygiène de vie 🍎</h3>
+                        <ul class="list">
+                            <li>**Sommeil régulier** (même heure coucher/lever si possible)</li>
+                            <li>**Activité physique** régulière (même 20 min de marche/jour)</li>
+                            <li>Repas équilibrés et **hydratation** suffisante (eau)</li>
+                            <li>Limiter la caféine, l'alcool et les **écrans avant le coucher**</li>
+                        </ul>
+                    </div>
 
-        btn.addEventListener("click", toggleMenu);
-        menuOverlay.addEventListener("click", toggleMenu);
+                    <div>
+                        <h3>B — Organisation & méthodes 🧠</h3>
+                        <ul class="list">
+                            <li>Planifier la semaine et **fractionner les tâches** en sous-objectifs</li>
+                            <li>Méthode **Pomodoro** (25/5) pour avancer sans se saturer (pause régulière)</li>
+                            <li>**Prioriser 3 tâches** importantes par jour (loi de Pareto : 80/20)</li>
+                            <li>Partager la charge : groupe d'étude, mentorat, aide aux devoirs</li>
+                        </ul>
+                    </div>
+                </div>
 
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener("click", toggleMenu);
-        });
+                <div style="margin-top:14px" class="cols">
+                    <div>
+                        <h3>C — Santé mentale 🗣️</h3>
+                        <ul class="list">
+                            <li>**Parler** de ses difficultés à un proche, un pair ou un professionnel</li>
+                            <li>Utiliser les 8 séances gratuites (<a href="https://www.santepsy.etudiant.gouv.fr" target="_blank">Santé Psy Étudiants</a>)</li>
+                            <li>**Repérer signes d'alerte** : anxiété persistante, sommeil perturbé, isolement</li>
+                            <li>Se réserver du temps pour un **hobby** ou une activité plaisante</li>
+                        </ul>
+                    </div>
 
-        function sendForm(e){
-            e.preventDefault();
-            document.getElementById('formStatus').textContent = 'Message envoyé !';
-            e.target.reset();
-        }
-    </script>
+                    <div>
+                        <h3>D — Gérer l'urgence 🔥</h3>
+                        <ul class="list">
+                            <li>**Technique d'ancrage** (5-4-3-2-1) pour revenir au moment présent</li>
+                            <li>**Respiration profonde** (carrée ou 4-4-4) pour ralentir le rythme cardiaque</li>
+                            <li>Marcher 10 minutes ou s'exposer à la lumière naturelle</li>
+                            <li>Si intense : appeler le **3114** (Prévention suicide)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ressources">
+            <div class="card">
+                <h2>Ressources et aides (France) 🤝</h2>
+                <p class="muted">Liens utiles et services gratuits pour alléger la pression financière, psychologique et sociale.</p>
+
+                <div class="cols" style="margin-top:12px">
+                    <div class="resource">
+                        <h3>Aides alimentaires & sociales</h3>
+                        <a href="https://www.lescrous.fr/" target="_blank" rel="noopener">**Crous** — Repas étudiants dès 1€ (pour boursiers et non-boursiers sur critères)</a>
+                        <a href="https://www.fage.org/innovation-sociale/solidarite-etudiante/agorae-fage.htm" target="_blank" rel="noopener noreferrer">**AGORAé** — Épiceries solidaires étudiantes (FAGE)</a>
+                        <a href="https://www.restosducoeur.org" target="_blank" rel="noopener">Restos du Cœur (aide alimentaire générale)</a>
+                    </div>
+
+                    <div class="resource">
+                        <h3>Santé mentale & écoute</h3>
+                        <a href="https://www.santepsy.etudiant.gouv.fr" target="_blank" rel="noopener">**Santé Psy Étudiants** — 8 séances gratuites chez un psychologue</a>
+                        <a href="https://www.nightline.fr" target="_blank" rel="noopener">**Nightline** — Ligne d'écoute nocturne par des étudiants bénévoles</a>
+                        <a href="https://www.filsantejeunes.com" target="_blank" rel="noopener">Fil Santé Jeunes (tchat, téléphone, questions sur la santé)</a>
+                    </div>
+                </div>
+
+                <div style="margin-top:12px" class="cols">
+                    <div>
+                        <h3>Logement et aides financières</h3>
+                        <a href="https://www.visale.fr" target="_blank" rel="noopener">**Visale** — Caution locative gratuite pour étudiants</a>
+                        <a href="https://www.caf.fr" target="_blank" rel="noopener">CAF — APL, ALS (Aides au logement)</a>
+                        <a href="https://trouverunlogement.lescrous.fr/" target="_blank" rel="noopener">Crous — Logements universitaires (tarifs réduits)</a>
+                    </div>
+
+                    <div>
+                        <h3>Santé & prévention</h3>
+                        <a href="https://www.planning-familial.org" target="_blank" rel="noopener">Planning Familial (sexualité, contraception, IVG)</a>
+                        <a href="https://www.sante.fr/trouver-un-cegidd/" target="_blank" rel="noopener">Centres de dépistage gratuits (CeGIDD)</a>
+                        <a href="https://www.ameli.fr" target="_blank" rel="noopener">Ameli — Remboursements et Complémentaire Santé Solidaire (CSS)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="card">
+                <h2>Questions fréquentes (FAQ) ❓</h2>
+                <p class="muted">Quelques réponses rapides sur le stress et son accompagnement.</p>
+
+                <div class="stack" style="margin-top:12px">
+                    <div class="faq-item">
+                        <div class="faq-question">Qu'est-ce que le "bon" et le "mauvais" stress ?</div>
+                        <div class="faq-answer">
+                            <p class="small muted">Le **bon stress (eustress)** est une réponse positive qui te motive et te rend plus performant sur une courte durée (ex: examen). Le **mauvais stress (détresse)** est chronique, te paralyse et impacte négativement ta santé physique et mentale.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Quels sont les signes physiques du stress ?</div>
+                        <div class="faq-answer">
+                            <p class="small muted">Les signes courants incluent :</p>
+                            <ul class="list small">
+                                <li>Maux de tête, tensions musculaires</li>
+                                <li>Troubles digestifs, nausées</li>
+                                <li>Sommeil perturbé (insomnie ou hypersomnie)</li>
+                                <li>Augmentation du rythme cardiaque, sensation d'étouffement</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Comment utiliser la méthode Pomodoro ?</div>
+                        <div class="faq-answer">
+                            <p class="small muted">C'est une technique de gestion du temps simple :</p>
+                            <ul class="list small">
+                                <li>Définis une tâche.</li>
+                                <li>Travaille dessus pendant **25 minutes** (un "Pomodoro").</li>
+                                <li>Fais une **pause de 5 minutes**.</li>
+                                <li>Après 4 Pomodoros, fais une plus longue pause (20-30 minutes).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nums">
+            <div class="card">
+                <h2>Numéros d'assistance 📞</h2>
+
+                <div class="stack" style="margin-top:8px" id="nums">
+                    <div>**Prévention suicide :** <a href="tel:3114">3114</a> — 24/7 — gratuit, anonyme.</div>
+                    <div>**Harcèlement / cyberharcèlement :** <a href="tel:3018">3018</a> — 7/7 — gratuit, confidentiel.</div>
+                    <div>**Violences sexistes / sexuelles :** <a href="tel:3919">3919</a> — anonyme, gratuit (heures ouvrables).</div>
+                    <div>**Drogues / addictions :** <a href="tel:0800231313">0 800 23 13 13</a> — Drogues Info Service — gratuit.</div>
+                    <div>**Santé mentale jeune :** <a href="tel:0800235236">0 800 235 236</a> — Fil Santé Jeunes — gratuit.</div>
+                    <div>**Numéro d'urgence européen :** <a href="tel:112">112</a> — Police/Gendarmerie, Samu/Pompier.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="card">
+                <h2>Contact 📧</h2>
+                <p style="color:var(--muted)">UNIQUEMENT Pour proposer une ressource, signaler une erreur ou faire un partenariat.<br/>**Si vous êtes en détresse, veuillez contacter immédiatement les numéros d'urgence indiqués ci-dessus (3114, 112).**</p>
+
+                <div class="contact-grid">
+                    <form onsubmit="sendForm(event)">
+                        <input id="name" placeholder="Ton prénom" required>
+                        <input id="email" type="email" placeholder="Ton email" required>
+                        <textarea id="message" rows="5" placeholder="Message" required></textarea>
+                        <button class="primary" type="submit">Envoyer le message</button>
+                        <div id="formStatus" style="font-size:14px;margin-top:8px;color:var(--muted)"></div>
+                    </form>
+
+                    <div class="contact-info">
+                        <h4 style="margin:0 0 12px; color: var(--text);">Infos utiles</h4>
+                        <div style="margin-bottom: 12px;">**Organisation :** Projet étudiant - Design Thinking</div>
+                        <div style="margin-bottom: 12px;">**Email :** <a href="mailto:dt20.no.stress@gmail.com">dt20.no.stress@gmail.com</a></div>
+                        <div>**Avertissement :** Ce site n'est pas un avis médical ou psychologique. Il a une visée d'information et d'orientation vers des services professionnels.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+                <div class="small muted">© Projet Design Thinking — Plateforme Stress Étudiant</div>
+                <div class="small muted">Version prototype • Liens officiels fournis pour l'orientation</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById("mobileBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuOverlay = document.getElementById("menuOverlay");
+
+        btn.addEventListener("click", () => {
+            const isOpen = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", !isOpen);
+
+            if (isOpen){
+                mobileMenu.classList.remove("open");
+                btn.classList.remove("open");
+                menuOverlay.classList.remove("active");
+            } else {
+                mobileMenu.classList.add("open");
+                btn.classList.add("open");
+                menuOverlay.classList.add("active");
+            }
+        });
+
+        menuOverlay.addEventListener("click", () => {
+            btn.setAttribute("aria-expanded", "false");
+            mobileMenu.classList.remove("open");
+            btn.classList.remove("open");
+            menuOverlay.classList.remove("active");
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener("click", () => {
+                btn.setAttribute("aria-expanded", "false");
+                mobileMenu.classList.remove("open");
+                btn.classList.remove("open");
+                menuOverlay.classList.remove("active");
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e){
+                const href = this.getAttribute('href');
+
+                if (href.length > 1){
+                    e.preventDefault();
+                    const el = document.querySelector(href);
+
+                    if (el){
+                        const offset = 80;
+                        const position = el.getBoundingClientRect().top;
+                        const offsetPosition = position + window.pageYOffset - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        function sendForm(e){
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const msg = document.getElementById('message').value.trim();
+            const status = document.getElementById('formStatus');
+
+            if(!name || !email || !msg){
+                status.textContent = 'Merci de compléter tous les champs.';
+                return;
+            }
+
+            status.style.color = 'var(--accent-2)';
+            status.textContent = 'Message envoyé — merci !';
+            e.target.reset();
+        }
+
+        // Logique d'accordéon pour la FAQ
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                
+                // Ferme les autres FAQ ouvertes
+                document.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Ouvre ou ferme la FAQ cliquée
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
