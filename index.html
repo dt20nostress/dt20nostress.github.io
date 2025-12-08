@@ -142,8 +142,8 @@
             .mobile-toggle {
                 display: flex;
                 position: absolute;
-                /* Aligné à droite du conteneur nav (qui a déjà du padding, donc pas collé à l'écran) */
-                right: 0; 
+                /* CHANGEMENT ICI : Décalage de 10px par rapport au bord */
+                right: 10px; 
                 top: 50%;
                 transform: translateY(-50%);
             }
@@ -159,8 +159,8 @@
             .mobile-menu {
                 position: absolute;
                 top: 100%; /* Juste sous le header */
-                /* Aligné à droite comme le bouton hamburger */
-                right: 0; 
+                /* CHANGEMENT ICI : Même décalage pour l'alignement */
+                right: 10px; 
                 margin-top: 10px;
                 
                 width: 240px; /* Largeur contenue */
