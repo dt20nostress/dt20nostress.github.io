@@ -58,7 +58,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative; /* Important pour le positionnement du menu et du bouton */
+            position: relative;
         }
 
         .brand {
@@ -105,7 +105,6 @@
         /* --- MOBILE TOGGLE & ANIMATION CROIX --- */
         .mobile-toggle {
             display: none;
-            /* Styles de base du bouton */
             background: transparent;
             border: 1px solid rgba(0,0,0,0.1);
             padding: 8px;
@@ -143,13 +142,13 @@
         @media (max-width: 880px) {
             nav ul { display: none }
             
-            /* --- CORRECTION DU POSITIONNEMENT DU BOUTON --- */
+            /* Positionnement Absolu du bouton (à droite) */
             .mobile-toggle {
                 display: flex;
-                position: absolute; /* On le sort du flux normal */
-                right: 12px; /* On le place à droite, légèrement décalé du bord */
-                top: 50%; /* Centrage vertical */
-                transform: translateY(-50%); /* Ajustement du centrage vertical */
+                position: absolute;
+                right: 12px; /* Décalé légèrement du bord */
+                top: 50%;
+                transform: translateY(-50%);
             }
 
             .hero { padding: 24px 0 }
@@ -207,21 +206,6 @@
                 background: var(--bg);
                 color: var(--accent-2);
             }
-
-            .menu-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0);
-                z-index: 1001;
-                display: none;
-            }
-
-            .menu-overlay.active {
-                display: block;
-            }
             
             .contact-grid {
                 grid-template-columns: 1fr !important;
@@ -233,7 +217,6 @@
 
         @media (min-width: 881px) {
             .mobile-menu { display: none !important; }
-            .menu-overlay { display: none !important; }
         }
 
         /* Hero */
@@ -449,8 +432,6 @@
                 </ul>
             </div>
         </div>
-
-        <div class="menu-overlay" id="menuOverlay"></div>
     </header>
 
     <main class="container">
@@ -472,7 +453,7 @@
                 </div>
 
                 <aside class="card">
-                    <h3 style="margin:0 0 8px">Actions rapides ⚡️</h3>
+                    <h3 style="margin:0 0 8px">Actions rapides</h3>
                     <div class="small muted">Si tu ne sais pas par où commencer :</div>
                     <ol style="padding-left:18px; margin:10px 0 0; color: var(--text);">
                         <li><strong>Respire 4-4-4</strong> : inspire 4s / retiens 4s / expire 4s</li>
@@ -485,7 +466,7 @@
 
         <section id="sources">
             <div class="card">
-                <h2>Les grandes sources de stress 😥</h2>
+                <h2>Les grandes sources de stress</h2>
                 <p class="muted">Ces facteurs reviennent fréquemment et peuvent fragiliser la santé mentale.</p>
 
                 <div class="cols" style="margin-top:12px">
@@ -514,7 +495,7 @@
 
         <section id="reduire">
             <div class="card">
-                <h2>Comment réduire le stress ? 🧘</h2>
+                <h2>Comment réduire le stress ?</h2>
 
                 <div class="cols" style="margin-top:12px">
                     <div>
@@ -562,7 +543,7 @@
 
         <section id="faq">
             <div class="card">
-                <h2>Questions fréquentes (FAQ) ❓</h2>
+                <h2>Questions fréquentes (FAQ)</h2>
                 <div class="stack" style="margin-top:12px">
                     <div class="faq-item">
                         <div class="faq-question">C'est quoi le "bon" stress ?</div>
@@ -588,7 +569,7 @@
 
         <section id="ressources">
             <div class="card">
-                <h2>Ressources et aides (France) 🤝</h2>
+                <h2>Ressources et aides (France)</h2>
                 <p class="muted">Liens utiles et services gratuits.</p>
 
                 <div class="cols" style="margin-top:12px">
@@ -626,7 +607,7 @@
 
         <section id="nums">
             <div class="card">
-                <h2>Numéros d'urgence & d'écoute 📞</h2>
+                <h2>Numéros d'urgence & d'écoute</h2>
                 <div class="stack" style="margin-top:8px">
                     <div><strong>Prévention suicide :</strong> <a href="tel:3114">3114</a> (24/7, gratuit)</div>
                     <div><strong>Harcèlement :</strong> <a href="tel:3018">3018</a> (7/7, gratuit)</div>
@@ -639,7 +620,7 @@
 
         <section id="contact">
             <div class="card">
-                <h2>Contact 📧</h2>
+                <h2>Contact</h2>
                 <p style="color:var(--muted)">Pour signaler une erreur ou proposer une ressource (pas d'urgence médicale ici).</p>
 
                 <div class="contact-grid">
@@ -675,7 +656,6 @@
         // Gestion Menu Mobile
         const btn = document.getElementById("mobileBtn");
         const mobileMenu = document.getElementById("mobileMenu");
-        const menuOverlay = document.getElementById("menuOverlay");
 
         function toggleMenu() {
             const isOpen = btn.getAttribute("aria-expanded") === "true";
@@ -685,23 +665,34 @@
                 // Fermer
                 mobileMenu.classList.remove("open");
                 btn.classList.remove("open");
-                menuOverlay.classList.remove("active");
             } else {
                 // Ouvrir
                 mobileMenu.classList.add("open");
                 btn.classList.add("open");
-                menuOverlay.classList.add("active");
             }
         }
 
-        btn.addEventListener("click", toggleMenu);
-        menuOverlay.addEventListener("click", toggleMenu);
+        btn.addEventListener("click", function(event) {
+            event.stopPropagation(); // Empêche le clic sur le bouton de déclencher l'événement document
+            toggleMenu();
+        });
 
         // Fermer le menu au clic sur un lien
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener("click", () => {
                 if(mobileMenu.classList.contains('open')) toggleMenu();
             });
+        });
+
+        // Fermer le menu si on clique n'importe où ailleurs sur la page
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnButton = btn.contains(event.target);
+
+            // Si le menu est ouvert ET que le clic n'est ni dans le menu ni sur le bouton
+            if (mobileMenu.classList.contains('open') && !isClickInsideMenu && !isClickOnButton) {
+                toggleMenu();
+            }
         });
 
         // Smooth Scroll pour tous les liens ancrés
