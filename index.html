@@ -16,7 +16,7 @@
             --accent: #C4A287;       /* Beige soutenu */
             --accent-2: #8B7866;     /* Marron terre */
             --accent-3: #F0E6DC;     /* Beige très clair */
-            --glass: rgba(245, 241, 235, 0.95); /* Header quasi opaque */
+            --glass: rgba(245, 241, 235, 0.95); 
             
             --maxw: 1100px;
             --radius: 16px;
@@ -58,7 +58,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative; /* Référence pour le menu mobile */
+            position: relative; 
             min-height: 60px;
         }
 
@@ -106,7 +106,7 @@
 
         /* --- BOUTON HAMBURGER (MOBILE) --- */
         .mobile-toggle {
-            display: none; /* Caché sur PC */
+            display: none; 
             background: transparent;
             border: 1px solid rgba(0,0,0,0.1);
             padding: 8px;
@@ -129,20 +129,17 @@
             transform-origin: center;
         }
 
-        /* Animation Croix */
         .mobile-toggle.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
         .mobile-toggle.open .hamburger-line:nth-child(2) { opacity: 0; }
         .mobile-toggle.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
         /* --- RESPONSIVE MOBILE (<880px) --- */
         @media (max-width: 880px) {
-            nav ul { display: none } /* Cacher menu desktop */
+            nav ul { display: none } 
             
-            /* Positionnement du bouton hamburger */
             .mobile-toggle {
                 display: flex;
                 position: absolute;
-                /* CHANGEMENT ICI : Décalage de 10px par rapport au bord */
                 right: 10px; 
                 top: 50%;
                 transform: translateY(-50%);
@@ -158,19 +155,15 @@
             /* MENU DÉROULANT COMPACT */
             .mobile-menu {
                 position: absolute;
-                top: 100%; /* Juste sous le header */
-                /* CHANGEMENT ICI : Même décalage pour l'alignement */
+                top: 100%;
                 right: 10px; 
                 margin-top: 10px;
-                
-                width: 240px; /* Largeur contenue */
+                width: 240px; 
                 height: auto;
-                
                 background: var(--card);
                 border: 1px solid var(--accent-3);
                 border-radius: var(--radius);
                 box-shadow: 0 10px 25px rgba(139, 120, 102, 0.15);
-                
                 padding: 10px 0;
                 opacity: 0;
                 transform: translateY(-10px);
@@ -211,7 +204,7 @@
             .mobile-menu { display: none !important; }
         }
 
-        /* --- HERO SECTION --- */
+        /* --- SECTIONS --- */
         .hero { padding: 42px 0 }
 
         .hero-grid {
@@ -254,7 +247,6 @@
             font-size: 14px;
         }
 
-        /* --- SECTIONS STANDARD --- */
         section { padding: 22px 0 }
         h2 { margin: 0 0 12px; color: var(--text); }
         h3 { color: var(--text); margin-bottom: 12px; }
@@ -355,6 +347,19 @@
             border-color: var(--accent);
         }
 
+        /* Style spécifique pour le bouton de téléchargement */
+        .download-btn {
+            background-color: var(--accent);
+            color: white !important; /* Force le blanc */
+            font-weight: 600;
+            justify-content: center;
+            text-align: center;
+        }
+        .download-btn:hover {
+            background-color: var(--accent-2);
+            color: white !important;
+        }
+
         /* --- FOOTER --- */
         footer {
             padding: 22px 0;
@@ -438,8 +443,8 @@
             <nav>
                 <ul id="navList">
                     <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#sources">Sources de stress</a></li>
-                    <li><a href="#reduire">Le réduire</a></li>
+                    <li><a href="#sources">Sources</a></li>
+                    <li><a href="#reduire">Réduire</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <li><a href="#ressources">Ressources</a></li>
                     <li><a href="#nums">Numéros</a></li>
@@ -450,8 +455,8 @@
             <div class="mobile-menu" id="mobileMenu">
                 <ul>
                     <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#sources">Sources de stress</a></li>
-                    <li><a href="#reduire">Le réduire</a></li>
+                    <li><a href="#sources">Sources</a></li>
+                    <li><a href="#reduire">Réduire</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <li><a href="#ressources">Ressources</a></li>
                     <li><a href="#nums">Numéros</a></li>
@@ -602,11 +607,18 @@
                 <div class="resource-grid">
                     
                     <div class="resource-category">
+                        <h3>Outils d'Organisation</h3>
+                        <p class="small muted" style="margin-bottom: 12px;">Un modèle Excel simple pour gérer ton emploi du temps.</p>
+                        <a href="./emploi_du_temps.xlsx" download class="resource-link download-btn">
+                            📥 Télécharger le Planning
+                        </a>
+                    </div>
+
+                    <div class="resource-category">
                         <h3>Alimentation</h3>
                         <a href="https://www.lescrous.fr/" target="_blank" class="resource-link">Repas Crous à 1€</a>
                         <a href="https://www.fage.org/" target="_blank" class="resource-link">AGORAé (Épiceries)</a>
                         <a href="https://www.restosducoeur.org" target="_blank" class="resource-link">Restos du Cœur</a>
-                        <a href="https://www.banquealimentaire.org" target="_blank" class="resource-link">Banques Alimentaires</a>
                     </div>
 
                     <div class="resource-category">
@@ -699,7 +711,7 @@
             }
         }
 
-        // Empêcher la propagation pour ne pas fermer immédiatement
+        // Empêcher la propagation du clic sur le bouton pour ne pas fermer tout de suite
         btn.addEventListener("click", function(event) {
             event.stopPropagation();
             toggleMenu();
@@ -712,7 +724,7 @@
             });
         });
 
-        // --- FERMETURE AU CLIC AILLEURS (Click Outside) ---
+        // --- CLICK OUTSIDE (Fermer si clic ailleurs) ---
         document.addEventListener('click', function(event) {
             // Si le menu est ouvert
             if (mobileMenu.classList.contains('open')) {
@@ -778,5 +790,3 @@
     </script>
 </body>
 </html>
-
-
