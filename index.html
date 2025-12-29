@@ -16,7 +16,7 @@
             --accent: #C4A287;       /* Beige soutenu */
             --accent-2: #8B7866;     /* Marron terre */
             --accent-3: #F0E6DC;     /* Beige très clair */
-            --glass: rgba(245, 241, 235, 0.95); 
+            --glass: rgba(245, 241, 235, 0.95); /* Header quasi opaque */
             
             --maxw: 1100px;
             --radius: 16px;
@@ -58,7 +58,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative; 
+            position: relative; /* Référence pour le menu mobile */
             min-height: 60px;
         }
 
@@ -106,7 +106,7 @@
 
         /* --- BOUTON HAMBURGER (MOBILE) --- */
         .mobile-toggle {
-            display: none; 
+            display: none; /* Caché sur PC */
             background: transparent;
             border: 1px solid rgba(0,0,0,0.1);
             padding: 8px;
@@ -129,18 +129,20 @@
             transform-origin: center;
         }
 
+        /* Animation Croix */
         .mobile-toggle.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
         .mobile-toggle.open .hamburger-line:nth-child(2) { opacity: 0; }
         .mobile-toggle.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
         /* --- RESPONSIVE MOBILE (<880px) --- */
         @media (max-width: 880px) {
-            nav ul { display: none } 
+            nav ul { display: none } /* Cacher menu desktop */
             
+            /* Positionnement du bouton hamburger */
             .mobile-toggle {
                 display: flex;
                 position: absolute;
-                right: 10px; 
+                right: 10px; /* Décalage de 10px par rapport au bord */
                 top: 50%;
                 transform: translateY(-50%);
             }
@@ -155,15 +157,18 @@
             /* MENU DÉROULANT COMPACT */
             .mobile-menu {
                 position: absolute;
-                top: 100%;
-                right: 10px; 
+                top: 100%; /* Juste sous le header */
+                right: 10px; /* Aligné avec le bouton */
                 margin-top: 10px;
-                width: 240px; 
+                
+                width: 240px; /* Largeur contenue */
                 height: auto;
+                
                 background: var(--card);
                 border: 1px solid var(--accent-3);
                 border-radius: var(--radius);
                 box-shadow: 0 10px 25px rgba(139, 120, 102, 0.15);
+                
                 padding: 10px 0;
                 opacity: 0;
                 transform: translateY(-10px);
@@ -608,9 +613,14 @@
                     
                     <div class="resource-category">
                         <h3>Outils d'Organisation</h3>
-                        <p class="small muted" style="margin-bottom: 12px;">Un modèle Excel simple pour gérer ton emploi du temps.</p>
+                        <p class="small muted" style="margin-bottom: 12px;">Des modèles Excel simples pour t'organiser.</p>
+                        
                         <a href="./emploi_du_temps.xlsx" download class="resource-link download-btn">
                             📥 Télécharger le Planning
+                        </a>
+                        
+                        <a href="./to_do_list.xlsx" download class="resource-link download-btn">
+                            ✅ Télécharger la To-Do List
                         </a>
                     </div>
 
@@ -790,6 +800,3 @@
     </script>
 </body>
 </html>
-
-
-
